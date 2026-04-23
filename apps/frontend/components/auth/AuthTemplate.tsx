@@ -6,7 +6,7 @@ import Logo from "./Logo";
 
 interface AuthTemplateProps {
   children: React.ReactNode;
-  type: "signin" | "signup";
+  type: "signin" | "signup" | "verify" | "forgot-password";
   title: string;
   subtitle: string;
   sidebarTitle: React.ReactNode;
@@ -17,13 +17,13 @@ const SocialAuth = () => (
   <div className="grid grid-cols-2 gap-4">
     <Button
       variant="outline"
-      className="bg-white/5 border-white/10 hover:bg-white/10 text-white py-6 transition-all"
+      className="bg-white/5 border-white/10 hover:bg-white/10 rounded-sm text-white py-4 transition-all"
     >
       Google
     </Button>
     <Button
       variant="outline"
-      className="bg-white/5 border-white/10 hover:bg-white/10 text-white py-6 transition-all"
+      className="bg-white/5 border-white/10 hover:bg-white/10 rounded-sm text-white py-4 transition-all"
     >
       Github
     </Button>

@@ -15,7 +15,6 @@ export const pricingPlans = [
       "2 hours of recording/mo",
       "720p Video Quality",
       "Standard Audio",
-      "Basic AI Transcription",
     ],
     buttonText: "Get Started",
     isPopular: false,
@@ -25,7 +24,7 @@ export const pricingPlans = [
     price: "$29",
     description: "The complete engine for growing creators.",
     features: [
-      "Unlimited recording",
+      "20 hours of recording/mo",
       "4K Lossless Video",
       "WAV Audio",
       "10 AI Viral Clips/mo",

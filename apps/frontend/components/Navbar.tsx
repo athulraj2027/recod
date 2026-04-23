@@ -31,14 +31,9 @@ const NavLinks = () => (
 
 const AuthButtons = () => (
   <div className="flex items-center gap-4">
-    <Link href={`/signup`}>
+    <Link href={`/signin`}>
       <Button className="bg-black hover:bg-gray-900 text-white font-semibold  px-6 py-2 transition-transform active:scale-95">
         Sign In
-      </Button>
-    </Link>
-    <Link href={`/signup`}>
-      <Button className="bg-white hover:bg-gray-200 text-black font-semibold  px-6 py-2 transition-transform active:scale-95">
-        Sign Up
       </Button>
     </Link>
   </div>

@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  icons: { icon: "/logo.svg" },
   title: "Recod | High quality podcast recorder",
   description: "The professional AI recording studio for creators.",
 };

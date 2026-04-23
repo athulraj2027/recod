@@ -1,159 +1,151 @@
-# Turborepo starter
+# Riverside Clone
 
-This Turborepo starter is maintained by the Turborepo core team.
+A full-stack Riverside-style recording app built as a monorepo. This project combines a Next.js frontend with an Express backend for local webcam recording, upload, and playback of `.webm` files.
 
-## Using this example
+> Current snapshot is based on the repository state as of April 23, 2026.
 
-Run the following command:
+## Project Overview
 
-```sh
-npx create-turbo@latest
+- Monorepo managed with `turbo`
+- Frontend: `apps/frontend` using Next.js 16, React 19, Tailwind CSS, and shadcn/ui components
+- Backend: `apps/http` using Express 5 and TypeScript with `tsx watch`
+- Local upload storage under `apps/http/uploads`
+- Video streaming endpoint available at `/uploads/:filename`
+
+## What is implemented
+
+### Frontend
+
+- Landing page with hero, features, and pricing sections
+- Studio recording page (`app/(mvp)/studio`) that: 
+  - accesses camera and microphone
+  - renders live preview
+  - shows recording controls
+  - uploads recorded `.webm` files to the backend
+- Recordings vault page (`app/(mvp)/recordings`) that: 
+  - fetches recordings from the backend
+  - displays videos in cards
+  - supports video preview in a modal
+  - has UI for export/delete actions (delete is currently UI-only)
+- UI components and layout patterns using `@/components` and `@/components/ui`
+- Basic auth pages exist under `app/(auth)` for sign in, signup, forgot password, and verify OTP
+
+### Backend
+
+- Express server with CORS enabled for `http://localhost:3000`
+- API routes under `/api/v1`
+  - `POST /api/upload` to receive a single uploaded video file (`file` field)
+  - `GET /api/recordings` to list stored recordings from `uploads`
+  - `GET /api/recordings/:id` route stub exists but is not implemented
+- Static streaming route for uploaded video files: `/uploads/:filename`
+- Video uploads are saved as a unique `.webm` file in `apps/http/uploads`
+
+## Repo Structure
+
+- `apps/frontend`: Next.js frontend application
+  - `app/`: Next.js app router pages and layouts
+  - `components/`: reusable UI and landing components
+  - `hooks/`: custom hooks like recorder logic
+  - `services/`: API service helpers
+- `apps/http`: Express backend application
+  - `src/routes/v1`: API route definitions
+  - `src/controllers`: upload and recording controllers
+  - `src/lib`: upload middleware config
+  - `src/middlewares`: error handling middleware
+  - `uploads/`: persisted `.webm` files
+- `packages/`: shared UI packages and utilities
+
+## Setup
+
+### Requirements
+
+- Node.js >= 18
+- npm 11.8.0 (project uses `packageManager` pinned in the root)
+
+### Install dependencies
+
+From the repository root:
+
+```bash
+npm install
 ```
 
-## What's inside?
+### Run the project
 
-This Turborepo includes the following packages/apps:
+- Start both apps via Turbo:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```bash
+npm run dev
 ```
 
-Without global `turbo`, use your package manager:
+This should start:
+- frontend on `http://localhost:3000`
+- backend on the port configured in `apps/http/.env` or `PORT` environment variable
 
-```sh
-cd my-turborepo
-npx turbo build
-npm dlx turbo build
-npm exec turbo build
+If you want to run apps individually:
+
+```bash
+cd apps/frontend
+npm run dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
+```bash
+cd apps/http
+npm run dev
 ```
 
-Without global `turbo`:
+## Backend Environment
 
-```sh
-npx turbo build --filter=docs
-npm exec turbo build --filter=docs
-npm exec turbo build --filter=docs
+Create an `.env` file inside `apps/http` with at least:
+
+```env
+PORT=4000
 ```
 
-### Develop
+## Useful Scripts
 
-To develop all apps and packages, run the following command:
+From the repo root:
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+- `npm run dev` — run Turbo development pipeline
+- `npm run build` — run Turbo build pipeline
+- `npm run lint` — run Turbo lint pipeline
+- `npm run format` — format workspace files with Prettier
+- `npm run check-types` — run Turbo type checks
 
-```sh
-cd my-turborepo
-turbo dev
-```
+From `apps/frontend`:
 
-Without global `turbo`, use your package manager:
+- `npm run dev` — start Next.js development server
+- `npm run build` — build frontend for production
+- `npm run start` — run Next.js production server
+- `npm run lint` — run ESLint
 
-```sh
-cd my-turborepo
-npx turbo dev
-npm exec turbo dev
-npm exec turbo dev
-```
+From `apps/http`:
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- `npm run dev` — start backend with `tsx watch`
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## Current Limitations / TODOs
 
-```sh
-turbo dev --filter=web
-```
+- `GET /api/recordings/:id` is stubbed and not implemented
+- Auth UI exists, but real authentication backend is not wired
+- Delete/export actions in the recordings UI are currently only placeholders
+- No production deployment configuration is included yet
+- Upload responses do not currently return the saved file URL
+- There is no database; recordings are stored in the local filesystem only
 
-Without global `turbo`:
+## Notes
 
-```sh
-npx turbo dev --filter=web
-npm exec turbo dev --filter=web
-npm exec turbo dev --filter=web
-```
+- Backend video streaming uses HTTP range requests for playback compatibility
+- Uploaded files are saved as `.webm`
+- The frontend expects backend API to be available at `http://localhost:4000`
 
-### Remote Caching
+## Recommended next steps
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+1. implement `GET /api/recordings/:id`
+2. return upload metadata and generated file URLs from the upload endpoint
+3. add real auth and session management
+4. add delete recording support in backend and frontend
+5. add deployment and environment-specific configuration
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+---
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-npm exec turbo login
-npm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-npm exec turbo link
-npm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+If you'd like, I can also add a `CONTRIBUTING` section, API reference, or a more detailed feature roadmap.

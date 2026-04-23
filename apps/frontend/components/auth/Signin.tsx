@@ -22,19 +22,19 @@ const Signin = () => {
     >
       <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-gray-400">
+          <Label htmlFor="email" className="text-gray-400 text-xs">
             Work Email
           </Label>
           <Input
             id="email"
             type="email"
             placeholder="name@company.com"
-            className="bg-white/5 border-white/10 text-white py-6 focus:border-[#CCFF00]/50 transition-all"
+            className="bg-white/5 border-white/10 text-white py-3 rounded-sm focus:border-[#CCFF00]/50 transition-all"
           />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <Label htmlFor="password" className="text-gray-400">
+            <Label htmlFor="password" className="text-gray-400 text-xs">
               Password
             </Label>
             <Link
@@ -48,10 +48,10 @@ const Signin = () => {
             id="password"
             type="password"
             placeholder="••••••••"
-            className="bg-white/5 border-white/10 text-white py-6 focus:border-[#CCFF00]/50 transition-all"
+            className="bg-white/5 border-white/10 text-white py-3 rounded-sm focus:border-[#CCFF00]/50 transition-all"
           />
         </div>
-        <Button className="w-full bg-[#CCFF00] hover:bg-[#b8e600] text-black font-bold py-6 text-lg mt-6 shadow-[0_0_20px_rgba(204,255,0,0.2)]">
+        <Button className="w-full bg-[#CCFF00] hover:bg-[#b8e600] text-black font-bold py-6 text-md rounded-sm mt-6 shadow-[0_0_20px_rgba(204,255,0,0.2)]">
           Sign In to Studio
         </Button>
       </form>

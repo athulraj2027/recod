@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.use("/meet", meetRoutes);
 router.use("/upload", uploadRoutes);
-router.use("/recording", recordingRoutes);
+router.use("/recordings", recordingRoutes);
 
 export default router;

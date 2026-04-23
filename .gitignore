@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 uploads
+.VSCodeCounter
 # Dependencies
 node_modules
 .pnp
