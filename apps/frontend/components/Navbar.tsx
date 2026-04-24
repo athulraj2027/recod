@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Layout } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { navLinks } from "@/constants/public";
+import { navLinks } from "@/constants/landing";
 
 // --- Sub-components ---
 

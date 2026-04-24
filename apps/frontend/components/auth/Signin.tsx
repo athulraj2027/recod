@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthTemplate from "./AuthTemplate";
 
-
 const Signin = () => {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <AuthTemplate
       type="signin"
@@ -44,12 +45,21 @@ const Signin = () => {
               Forgot password?
             </Link>
           </div>
-          <Input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            className="bg-white/5 border-white/10 text-white py-3 rounded-sm focus:border-[#CCFF00]/50 transition-all"
-          />
+          <div className="relative group">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              className="bg-white/5 border-white/10 text-white py-3 pr-10 rounded-sm focus:border-[#CCFF00]/50 transition-all"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#CCFF00] transition-colors focus:outline-none"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
         </div>
         <Button className="w-full bg-[#CCFF00] hover:bg-[#b8e600] text-black font-bold py-6 text-md rounded-sm mt-6 shadow-[0_0_20px_rgba(204,255,0,0.2)]">
           Sign In to Studio

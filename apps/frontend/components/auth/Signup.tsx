@@ -1,11 +1,14 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthTemplate from "./AuthTemplate";
+import { Eye, EyeOff } from "lucide-react";
 
 const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   return (
     <AuthTemplate
       type="signup"
@@ -42,25 +45,45 @@ const Signup = () => {
         </div>
         <div className="space-y-2">
           <Label htmlFor="password" className="text-gray-400 text-xs">
-            Password
+            New Password
           </Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            className="bg-white/5 border-white/10 text-white py-3 rounded-sm focus:border-[#CCFF00]/50 transition-all"
-          />
+          <div className="relative group">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              className="bg-white/5 border-white/10 text-white py-3 pr-10 rounded-sm focus:border-[#CCFF00]/50 transition-all"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#CCFF00] transition-colors focus:outline-none"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
         </div>
+
+        {/* Confirm Password Field */}
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-gray-400 text-xs">
-            Password
+          <Label htmlFor="confirmPassword" className="text-gray-400 text-xs">
+            Confirm Password
           </Label>
-          <Input
-            id="confirmPassword"
-            type="password"
-            placeholder="••••••••"
-            className="bg-white/5 border-white/10 text-white py-3 rounded-sm focus:border-[#CCFF00]/50 transition-all"
-          />
+          <div className="relative group">
+            <Input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="••••••••"
+              className="bg-white/5 border-white/10 text-white py-3 pr-10 rounded-sm focus:border-[#CCFF00]/50 transition-all"
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#CCFF00] transition-colors focus:outline-none"
+            >
+              {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
         </div>
         <Button className="w-full bg-[#CCFF00] hover:bg-[#b8e600] text-black rounded-sm font-bold py-6 text-md mt-6 shadow-[0_0_20px_rgba(204,255,0,0.2)]">
           Create Studio Account

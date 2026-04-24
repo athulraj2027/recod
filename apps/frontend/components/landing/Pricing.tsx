@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { pricingPlans } from "@/constants/public";
+import { pricingPlans } from "@/constants/landing";
 
 const PricingCard = ({ plan }: { plan: (typeof pricingPlans)[0] }) => (
   <Card
